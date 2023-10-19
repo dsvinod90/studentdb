@@ -1,13 +1,19 @@
-const AWS = require("aws-sdk");
-const express = require('express');
+import express from 'express';
+import bodyParser from 'body-parser';
+import student from './route.js';
 
-const app = express();
-AWS.config.update({
-  region: "localhost"
-});
+const app = express()
 
-const DynamoDB = new AWS.DynamoDB();
-const port = 8080;
-app.listen(port, () => {
-  console.log(`Listening on port ${port}`);
-});
+app.use(bodyParser.json())
+
+app.get("/", (req, res)=>{
+    res.json({"Hi":"Hello World"})
+})
+
+app.use('/api', student)
+
+const PORT = 8000
+
+app.listen(PORT, () => {
+    console.log(`Port listening on ${PORT}`)
+})
