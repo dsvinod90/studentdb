@@ -1,9 +1,9 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import student from './route.js';
+import createStudentDBTable from './database/entityCreator.js';
 
 const app = express()
-const { createStudentDBTable } = require('./database/entityCreator.js');
 
 app.use(bodyParser.json())
 
