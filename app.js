@@ -3,6 +3,7 @@ import bodyParser from 'body-parser';
 import student from './route.js';
 
 const app = express()
+const { createStudentDBTable } = require('./database/entityCreator.js');
 
 app.use(bodyParser.json())
 
@@ -16,4 +17,5 @@ const PORT = 8000
 
 app.listen(PORT, () => {
     console.log(`Port listening on ${PORT}`)
+    createStudentDBTable(DynamoDB);
 })
