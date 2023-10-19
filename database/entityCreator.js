@@ -1,7 +1,4 @@
-
-
-
-function createStudentDBTable(dynamodb) {
+export default function createStudentDBTable(dynamodb) {
   const params = {
     TableName: 'students',
     KeySchema: [
@@ -27,7 +24,4 @@ function createStudentDBTable(dynamodb) {
     }
   });
 }
-module.exports = {
-  createStudentDBTable
-};
 

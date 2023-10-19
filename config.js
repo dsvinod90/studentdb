@@ -10,10 +10,12 @@ AWS.config.update({
 
 console.log(process.env.AWS_ACCESS_KEY_ID)
 
+const dynamodb = new AWS.DynamoDB
 const db = new AWS.DynamoDB.DocumentClient()
 const studentTable = 'students'
 
 export {
   db,
+  dynamodb,
   studentTable
 }

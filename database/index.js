@@ -10,7 +10,8 @@ const createStudent = async (data = {}) =>{
         await db.put(params).promise()
         return { success: true }
     } catch(error){
-        return { success: false}
+        console.log(error)
+        return { success: false, data: { message: error['code'], status: error['statusCode'] } }
     }
 }
 

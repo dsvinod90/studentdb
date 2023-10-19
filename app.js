@@ -2,6 +2,7 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import student from './route.js';
 import createStudentDBTable from './database/entityCreator.js';
+import {dynamodb} from './config.js'
 
 const app = express()
 
@@ -13,9 +14,9 @@ app.get("/", (req, res)=>{
 
 app.use('/api', student)
 
-const PORT = 8000
+const PORT = 8080
 
 app.listen(PORT, () => {
     console.log(`Port listening on ${PORT}`)
-    createStudentDBTable(DynamoDB);
+    createStudentDBTable(dynamodb);
 })

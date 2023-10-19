@@ -1,5 +1,5 @@
 import express from  'express';
-import { createStudent, readStudent, updateStudent, deleteStudent, readAllStudents } from './db.js';
+import { createStudent } from './database/index.js';
 
 const router = express.Router();
 
@@ -50,7 +50,8 @@ router.post('/student', async (req, res) => {
   if (success) {
     return res.status(201).json({ success, data });
   }
-  res.status(500).json({ success: false, message: 'Error' });
+  const {message, status} = data
+  res.status(status).json({ success: false, message});
 });
 
 /* 
