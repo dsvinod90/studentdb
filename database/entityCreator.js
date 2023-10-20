@@ -1,3 +1,4 @@
+// Query to create Students table
 export default function createStudentDBTable(dynamodb) {
   const params = {
     TableName: 'students',

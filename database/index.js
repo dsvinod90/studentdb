@@ -1,5 +1,6 @@
 import {db, studentTable} from '../config.js'
 
+// Create or Update student based on the input data
 const createOrUpdateStudent = async (data = {}) =>{
     const params = {
         TableName: studentTable,
@@ -15,6 +16,7 @@ const createOrUpdateStudent = async (data = {}) =>{
     }
 }
 
+// Get all students in the database
 const readAllStudents = async () =>{
     const params = {
         TableName: studentTable,
@@ -31,6 +33,7 @@ const readAllStudents = async () =>{
     }
 }
 
+// Get a student based on name and phone number
 const readStudent = async (name, number) =>{
     const params = {
         TableName: studentTable,
@@ -52,6 +55,7 @@ const readStudent = async (name, number) =>{
     }
 }
 
+// Delete a student based on name and number
 const deleteStudent = async (name, number) =>{
     const params = {
         TableName: studentTable,
@@ -70,6 +74,7 @@ const deleteStudent = async (name, number) =>{
     }
 }
 
+// Check in object is an empty list of hash map
 const isObjectEmpty = (objectName) => {
     return Object.keys(objectName).length === 0
 }

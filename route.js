@@ -63,7 +63,7 @@ router.put('/student', async (req, res) => {
   if (success) {
     return res.json({ success, data });
   }
-  res.status(404).json({ success: false, message: 'Student not found' });
+  res.status(404).json({ success: false, message: 'CreateOrUpdate failed' });
 });
 
 /* 
