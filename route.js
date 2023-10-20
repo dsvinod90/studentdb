@@ -1,5 +1,5 @@
 import express from  'express';
-import { createStudent } from './database/index.js';
+import {createOrUpdateStudent, readAllStudents, readStudent, deleteStudent } from './database/index.js';
 
 const router = express.Router();
 
@@ -22,9 +22,10 @@ const validateParams = (req, res, next) => {
 * Get all students
 */
 router.get('/students', async (req, res) => {
-  const { success, data } = await readAllStudents();
+  const { success, data} = await readAllStudents();
+  const size = data['size']
   if (success) {
-    return res.json({ success, data });
+    return res.json({ success, data, size});
   }
   res.status(500).json({ success: false, message: "Error" });
 });
@@ -39,7 +40,7 @@ router.get('/student', validateParams, async (req, res) => {
   if (success) {
     return res.json({ success, data });
   }
-  res.status(404).json({ success: false, message: "Student not found" });
+  res.status(data['status']).json({ success: false, message: data['message'] });
 });
 
 /* 
@@ -57,8 +58,8 @@ router.post('/student', async (req, res) => {
 /* 
 * Update a student
 */
-router.put('/student', validateParams, async (req, res) => {
-  const { success, data } = await updateStudent(req.body);
+router.put('/student', async (req, res) => {
+  const { success, data } = await createOrUpdateStudent(req.body);
   if (success) {
     return res.json({ success, data });
   }
