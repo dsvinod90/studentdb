@@ -1,0 +1,22 @@
+doctype html
+html
+  head
+    title= StudentDB
+    link(rel='stylesheet', href='/style.css')
+    link(rel='stylesheet', href='https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css')
+    script(src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js", integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL", crossorigin="anonymous") 
+
+  body
+    div.container
+        h1.display-3.text-center StudentDB
+        p.lead.text-center Powered by DynamoDB
+        nav#navButtons.navbar.bg-body-tertiary
+            form.container-fluid.justify-content-center
+                a.btn.btn-outline-dark.navbar-buttons(href='/' role='button') Home
+                a.btn.btn-outline-dark.navbar-buttons(href='/api/upsert' role='button') Create/Update
+                a.btn.btn-outline-dark.navbar-buttons(href='/' role='button') Get all students
+                a.btn.btn-outline-dark.navbar-buttons(href='/' role='button') Get student
+                a.btn.btn-outline-dark.navbar-buttons(href='/' role='button') Remove student
+
+    block content
+script(src="/script.js") 

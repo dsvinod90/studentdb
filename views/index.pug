@@ -1,0 +1,21 @@
+extends layout 
+
+block content
+    h2(style={'text-align': 'center', 'margin-top': '5px'}) Welcome to StudentDB
+    p 
+    | This is a simple NodeJS, Express and Bootstrap application that provides a user interface to a student database
+    | which is implemented using DynamoDB. 
+    br
+    br
+    |This application provides the following endpoints:
+    ul.list-group.list-group-numbered
+        li.list-group-item Create a student
+        li.list-group-item Get a specific student from the database
+        li.list-group-item Get all the students from the database
+        li.list-group-item Update a specific student
+        li.list-group-item Remove a specific student
+    br
+    p Click on the links in the navbar to access each of the aforementioned options.
+    |
+    p.lead 
+    | #[b Project Members:] #[i Mohammed Saquib, Mrinmayee Rane, Vaidehi Kalra, Vinod Dalavai]

@@ -7,9 +7,11 @@ import {dynamodb} from './config.js'
 const app = express()
 
 app.use(bodyParser.json())
+app.use(express.static('public'));
+app.set('view engine', 'pug')
 
 app.get("/", (req, res)=>{
-    res.json({"Hi":"Welcome to Student DB"})
+    res.render('index')
 })
 
 // All endpoints pre-fixed with /api

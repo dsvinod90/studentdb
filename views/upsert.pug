@@ -1,0 +1,40 @@
+extends layout 
+
+block content
+    h2(style={'text-align': 'center', 'margin-top': '5px'}) Create or Update Student
+    form(id="upsertStudent" action="/api/student/"  method="post")
+        .input-group
+            span.input-group-text Name and Phone
+            input#studentName.form-control(name='Name' type='text' placeholder='John Doe' aria-label='StudentName' aria-describedby='addon-wrapping' autocomplete='off')
+            input#studentPhone.form-control(name='PrimaryPhone' type='text' placeholder='xxxxxxxxxx' aria-label='StudentPhone' aria-describedby='addon-wrapping' autocomplete='off')
+        .input-group.mb-3
+        p.d-inline-flex.gap-1.input-text(style={'width': '100%'})
+            input#numCourses.form-control(type='number' placeholder=1 aria-label="Number of Courses" aria-describedby='button-addon2-courses' style={'width': '85%'} value=1 autocomplete='off' min='1')
+            button#button-addon2-courses.btn.btn-outline-secondary(type='button' data-bs-toggle="collapse" data-bs-target="#collapseCourses" aria-expanded="false" aria-controls="collapseCourses" onclick='addCourses()') Add Courses
+        #collapseCourses.collapse
+            #courseGroup.card.card-body
+        .input-group.mb-3
+        p.d-inline-flex.gap-1.input-text(style={'width': '100%'})
+            input#numAddresses.form-control(type='number' placeholder=1 aria-label="Number of Addresses" aria-describedby='button-addon2-addresses' style={'width': '85%'} value=1 autocomplete='off' min='1')
+            button#button-addon2-addresses.btn.btn-outline-secondary(type='button' data-bs-toggle="collapse" data-bs-target="#collapseAddresses" aria-expanded="false" aria-controls="collapseAddresses" onclick='addAddresses()') Add Addresses
+        #collapseAddresses.collapse
+            #addressGroup.card.card-body
+        br
+        #projectThesis.text-center
+            .form-check.form-check-inline
+                input#inlineRadioProject.form-check-input(type='radio' name='projectThesis' value='project')
+                label.form-check-label(for='projectThesis') Project
+            .form-check.form-check-inline
+                input#inlineRadioThesis.form-check-input(type='radio' name='projectThesis' value='thesis')
+                label.form-check-label(for='projectThesis') Thesis
+        .input-group
+            span.input-group-text Faculty and Title
+            input#faculty.form-control(type='text' aria-label='Faculty' placeholder='Faculty Name' disabled)
+            input#title.form-control(type='text' aria-label='Last name' placeholder='Title of project/thesis' disabled)
+        br
+        .input-group
+            span.input-group-text GPA and Scholarship(%)
+            input#studentName.form-control(name='GPA' type='text' placeholder='3.8' aria-label='GPA' aria-describedby='addon-wrapping' autocomplete='off')
+            input#studentPhone.form-control(name='Scholarship' type='text' placeholder='30' aria-label='Scholarship' aria-describedby='addon-wrapping' autocomplete='off')
+        br
+        input.btn.btn-primary(type="submit" value="Submit")
