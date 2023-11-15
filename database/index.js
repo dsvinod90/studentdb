@@ -2,6 +2,7 @@ import {db, studentTable} from '../config.js'
 
 // Create or Update student based on the input data
 const createOrUpdateStudent = async (data = {}) =>{
+    console.log(data)
     const params = {
         TableName: studentTable,
         Item: data

@@ -1,7 +1,11 @@
 import express from  'express';
 import {createOrUpdateStudent, readAllStudents, readStudent, deleteStudent } from './database/index.js';
+import { render } from 'pug';
 
 const router = express.Router();
+router.use(express.urlencoded({
+    extended: true
+  }))
 
 // Error handling middleware
 const errorHandler = (err, req, res, next) => {
@@ -43,22 +47,14 @@ router.get('/student', validateParams, async (req, res) => {
   res.status(data['status']).json({ success: false, message: data['message'] });
 });
 
-/* 
-* Create  a student 
-*/
-router.post('/student', async (req, res) => {
-  const { success, data } = await createStudent(req.body);
-  if (success) {
-    return res.status(201).json({ success, data });
-  }
-  const {message, status} = data
-  res.status(status).json({ success: false, message});
+router.get('/upsert', async (req, res) => {
+  res.render('upsert')
 });
 
 /* 
-* Update a student
+* Create or Update a student
 */
-router.put('/student', async (req, res) => {
+router.post('/student', async (req, res) => {
   const { success, data } = await createOrUpdateStudent(req.body);
   if (success) {
     return res.json({ success, data });
