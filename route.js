@@ -32,7 +32,7 @@ router.get('/students', async (req, res) => {
   try {
     const { success, data } = await readAllStudents();
     if (success) {
-      res.render('students', { students: data });
+      res.render('students', { students: data, type: 'all' });
     } else {
       res.status(500).json({ success: false, message: "Error fetching students" });
     }
@@ -51,7 +51,7 @@ router.get('/student', validateParams, async (req, res) => {
   const number = req.query.number;
   const { success, data } = await readStudent(name, number);
   if (success) {
-    return res.render('students', { students: [data] });;
+    return res.render('students', { students: [data], type: 'single' });;
   }
   res.status(data['status']).json({ success: false, message: data['message'] });
 });

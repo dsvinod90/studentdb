@@ -1,7 +1,10 @@
 extends layout
 
 block content
-  h2.text-center All Students
+  -if (type === 'all')
+    h2.text-center All Students
+  -else
+    h2.text-center Student
   if students && students.length > 0
     table.table.table-striped.mt-3
       thead
