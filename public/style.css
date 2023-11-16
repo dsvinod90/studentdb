@@ -6,3 +6,15 @@
     margin-top: 2px;
     margin-bottom: 2px;
 }
+
+.flash-message-success {
+    color: green;
+    font-weight: bold;
+    text-align: center;
+}
+
+.flash-message-failure {
+    color: red;
+    font-weight: bold;
+    text-align: center;
+}

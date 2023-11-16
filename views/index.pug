@@ -1,6 +1,10 @@
-extends layout 
+extends layout
 
 block content
+    -if(success)
+        div#note.flash-message-failure #{success}
+    -else if(failure)
+        div#note.flash-message-failure #{failure}
     h2(style={'text-align': 'center', 'margin-top': '5px'}) Welcome to StudentDB
     p 
     | This is a simple NodeJS, Express and Bootstrap application that provides a user interface to a student database
