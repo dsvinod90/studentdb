@@ -4,9 +4,9 @@ import AWS from 'aws-sdk'
 AWS.config.update({
     region: "localhost",
     // Use access key from environment variable in host
-    accessKeyId: '',
+    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
     // Use secret access key from environment variable in host
-    secretAccessKey: '',
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
     // Dynamo DB running in port 8000
     endpoint: "http://localhost:8000"
 })
