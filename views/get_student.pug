@@ -1,0 +1,11 @@
+extends layout
+
+block content
+    h2(style={'text-align': 'center', 'margin-top': '5px'}) Get a Student
+    form(id="get_student" action="/api/student/"  method="get")
+        .input-group
+            span.input-group-text Name and Phone
+            input#studentName.form-control(name='name' type='text' placeholder='John Doe' aria-label='StudentName' aria-describedby='addon-wrapping' autocomplete='off')
+            input#studentPhone.form-control(name='number' type='text' placeholder='xxxxxxxxxx' aria-label='StudentPhone' aria-describedby='addon-wrapping' autocomplete='off')
+        br
+        input.btn.btn-primary(type="submit" value="Submit")
