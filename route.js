@@ -34,7 +34,8 @@ router.get('/students', async (req, res) => {
     if (success) {
       res.render('students', { students: data, type: 'all' });
     } else {
-      res.status(500).json({ success: false, message: "Error fetching students" });
+      req.flash('failure', 'No students found.')
+      res.render('index', {failure: req.flash('failure')});
     }
   } catch (error) {
     console.error(error);
@@ -51,9 +52,11 @@ router.get('/student', validateParams, async (req, res) => {
   const number = req.query.number;
   const { success, data } = await readStudent(name, number);
   if (success) {
-    return res.render('students', { students: [data], type: 'single' });;
+    res.render('students', { students: [data], type: 'single' });
+  } else {
+    req.flash('failure', 'Student record not found.')
+    res.render('get_student', {failure: req.flash('failure')});
   }
-  res.status(data['status']).json({ success: false, message: data['message'] });
 });
 
 router.get('/upsert', async (req, res) => {
@@ -70,13 +73,11 @@ router.get('/getStudent', async (req, res) => {
 router.post('/student', async (req, res) => {
   const { success, data } = await createOrUpdateStudent(req.body);
   if (success) {
-    // return res.json({ success, data });
     req.flash('success', 'Created student successfully.')
     res.render('index', {success: req.flash('success')});
   } else {
     req.flash('failure', 'Failed to create student. Please try again.')
     res.render('index', {failure: req.flash('failure')})
-    // res.status(404).json({ success: false, message: 'CreateOrUpdate failed' });    
   }
 });
 
@@ -91,7 +92,6 @@ router.get('/remove-student', validateParams, async (req, res) => {
     req.flash("success", "Removed Student Successfully!");
     res.render('index', {success: req.flash('success')});
   } else {
-    // res.status(404).json({ success: false, message: "Student not found" });
     req.flash('failure', 'Failed to remove student. Please try again.');
     res.render('index', {failure: req.flash('failure')});
   }
