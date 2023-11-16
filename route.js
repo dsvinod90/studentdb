@@ -1,11 +1,11 @@
-import express from  'express';
-import {createOrUpdateStudent, readAllStudents, readStudent, deleteStudent } from './database/index.js';
+import express from 'express';
+import { createOrUpdateStudent, readAllStudents, readStudent, deleteStudent } from './database/index.js';
 import { render } from 'pug';
 
 const router = express.Router();
 router.use(express.urlencoded({
-    extended: true
-  }))
+  extended: true
+}))
 
 // Error handling middleware
 const errorHandler = (err, req, res, next) => {
@@ -26,13 +26,19 @@ const validateParams = (req, res, next) => {
 * Get all students
 */
 router.get('/students', async (req, res) => {
-  const { success, data} = await readAllStudents();
-  const size = data['size']
-  if (success) {
-    return res.json({ success, data, size});
+  try {
+    const { success, data } = await readAllStudents();
+    if (success) {
+      res.render('students', { students: data });
+    } else {
+      res.status(500).json({ success: false, message: "Error fetching students" });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, message: "Internal Server Error" });
   }
-  res.status(500).json({ success: false, message: "Error" });
 });
+
 
 /* 
 * Get student by name and number
@@ -50,6 +56,7 @@ router.get('/student', validateParams, async (req, res) => {
 router.get('/upsert', async (req, res) => {
   res.render('upsert')
 });
+
 
 /* 
 * Create or Update a student
