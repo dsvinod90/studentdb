@@ -2,13 +2,21 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import student from './route.js';
 import createStudentDBTable from './database/entityCreator.js';
-import {dynamodb} from './config.js'
+import {dynamodb} from './config.js';
+import flash from 'connect-flash';
+import session from 'express-session';
 
 const app = express()
 
 app.use(bodyParser.json())
 app.use(express.static('public'));
-app.set('view engine', 'pug')
+app.use(session({
+    secret: 'student',
+    resave: false,
+    saveUninitialized: false
+}));
+app.use(flash());
+app.set('view engine', 'pug');
 
 app.get("/", (req, res)=>{
     res.render('index')

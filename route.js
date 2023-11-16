@@ -4,8 +4,8 @@ import { render } from 'pug';
 
 const router = express.Router();
 router.use(express.urlencoded({
-  extended: true
-}))
+    extended: true
+  }));
 
 // Error handling middleware
 const errorHandler = (err, req, res, next) => {
@@ -69,9 +69,14 @@ router.get('/getStudent', async (req, res) => {
 router.post('/student', async (req, res) => {
   const { success, data } = await createOrUpdateStudent(req.body);
   if (success) {
-    return res.json({ success, data });
+    // return res.json({ success, data });
+    req.flash('success', 'Created student successfully.')
+    res.render('index', {success: req.flash('success')});
+  } else {
+    req.flash('failure', 'Failed to create student. Please try again.')
+    res.render('index', {failure: req.flash('failure')})
+    // res.status(404).json({ success: false, message: 'CreateOrUpdate failed' });    
   }
-  res.status(404).json({ success: false, message: 'CreateOrUpdate failed' });
 });
 
 /* 
