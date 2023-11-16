@@ -15,6 +15,7 @@ const errorHandler = (err, req, res, next) => {
 
 // Validation middleware for checking the existence of required parameters
 const validateParams = (req, res, next) => {
+  console.log(req.query)
   const { name, number } = req.query;
   if (!name || !number) {
     return res.status(400).json({ success: false, message: "Invalid request parameters" });
@@ -46,6 +47,7 @@ router.get('/students', async (req, res) => {
 router.get('/student', validateParams, async (req, res) => {
   const name = req.query.name;
   const number = req.query.number;
+  console.log(req)
   const { success, data } = await readStudent(name, number);
   if (success) {
     return res.json({ success, data });
@@ -57,6 +59,9 @@ router.get('/upsert', async (req, res) => {
   res.render('upsert')
 });
 
+router.get('/getStudent', async (req, res) => {
+  res.render('get_student')
+});
 
 /* 
 * Create or Update a student
