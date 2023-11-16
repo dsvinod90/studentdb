@@ -1,0 +1,39 @@
+extends layout
+
+block content
+  h2.text-center All Students
+  if students && students.length > 0
+    table.table.table-striped.mt-3
+      thead
+        tr
+          th Name
+          th Primary Phone
+          th GPA
+          th Scholarship
+          th Courses
+          th Addresses
+          th Project/Thesis
+      tbody
+        each student in students
+          tr
+            td= student.Name
+            td= student.PrimaryPhone
+            td= student.GPA || 'N/A'
+            td= student.Scholarship || 'N/A'
+            td
+              if student.Courses && student.Courses.length > 0
+                ul
+                  each course in student.Courses
+                    li= course.name + ' (' + course.cid + ')'
+              else
+                | N/A
+            td
+              if student.Addresses && student.Addresses.length > 0
+                ul
+                  each address in student.Addresses
+                    li= address.street + ', ' + address.city + ', ' + address.state + ', ' + address.country + ' - ' + address.pincode
+              else
+                | N/A
+            td= student.projectThesis || 'N/A'
+  else
+    p.text-center No students found.
