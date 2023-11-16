@@ -2,7 +2,7 @@ extends layout
 
 block content
     -if(success)
-        div#note.flash-message-failure #{success}
+        div#note.flash-message-success #{success}
     -else if(failure)
         div#note.flash-message-failure #{failure}
     h2(style={'text-align': 'center', 'margin-top': '5px'}) Welcome to StudentDB
