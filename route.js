@@ -47,10 +47,9 @@ router.get('/students', async (req, res) => {
 router.get('/student', validateParams, async (req, res) => {
   const name = req.query.name;
   const number = req.query.number;
-  console.log(req)
   const { success, data } = await readStudent(name, number);
   if (success) {
-    return res.json({ success, data });
+    return res.render('students', { students: [data] });;
   }
   res.status(data['status']).json({ success: false, message: data['message'] });
 });
