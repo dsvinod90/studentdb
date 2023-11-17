@@ -1,0 +1,18 @@
+extends layout 
+
+block content
+    h2(style={'text-align': 'center', 'margin-top': '5px'}) Enroll Student
+    form(id="enrollStudent" method="post")
+        .input-group
+            span.input-group-text Name and Phone
+            input#studentName.form-control(name='Name' type='text' placeholder='John Doe' aria-label='StudentName' aria-describedby='addon-wrapping' autocomplete='off')
+            input#studentPhone.form-control(name='PrimaryPhone' type='text' placeholder='xxxxxxxxxx' aria-label='StudentPhone' aria-describedby='addon-wrapping' autocomplete='off')
+        .input-group.mb-3
+        p.d-inline-flex.gap-1.input-text(style={'width': '100%'})
+            input#numCourses.form-control(type='number' placeholder=1 aria-label="Number of Courses" aria-describedby='button-addon2-courses' style={'width': '85%'} value=1 autocomplete='off' min='1')
+            button#button-addon2-courses.btn.btn-outline-secondary(type='button' data-bs-toggle="collapse" data-bs-target="#collapseCourses" aria-expanded="false" aria-controls="collapseCourses" onclick='addCourses("numCourses", "courseGroup")') Add Courses
+        #collapseCourses.collapse
+            #courseGroup.card.card-body
+        #projectThesis.text-center
+        .text-center
+            input.btn.btn-primary.submit-button(type="submit" value="Enroll" formaction="/api/enroll")

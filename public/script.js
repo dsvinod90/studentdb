@@ -7,10 +7,14 @@ document.getElementById('projectThesis').addEventListener('click', () => {
         titleElement.disabled = false;
     }
 })
-const addCourses = () => {
-    let element = document.getElementById('numCourses');
-    let courseGroup = document.getElementById('courseGroup');
+const addCourses = (num, group) => {
+    console.log("Here")
+    let element = document.getElementById(num);
+    let courseGroup = document.getElementById(group);
     let numCourses = parseInt(element.value);
+    console.log(element);
+    console.log(courseGroup);
+    console.log(numCourses);
     if (courseGroup.hasChildNodes()) {
         return
     }

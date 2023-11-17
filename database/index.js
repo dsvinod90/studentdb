@@ -1,8 +1,7 @@
 import {db, studentTable} from '../config.js'
 
-// Create or Update student based on the input data
+// Create student based on the input data
 const createOrUpdateStudent = async (data = {}) =>{
-    console.log(data)
     const params = {
         TableName: studentTable,
         Item: data
@@ -15,6 +14,82 @@ const createOrUpdateStudent = async (data = {}) =>{
         console.log(error)
         return { success: false, data: { message: error['code'], status: error['statusCode'] } }
     }
+}
+
+// Update an existing student
+const updateStudent = async (data = {}) => {
+    let updateParams = 'SET';
+    let expressionAttributeValues = {};
+    for (let key in data) {
+        if (key === "Name" || key === "PrimaryPhone") {
+            continue;
+        } else {
+            updateParams += ` ${key} = :${key},`;
+            expressionAttributeValues[`:${key}`] = data[key];
+        }
+    }
+    const params = {
+        TableName: studentTable,
+        Key: {
+            "Name": data['Name'],
+            "PrimaryPhone": data['PrimaryPhone'],
+        },
+        UpdateExpression: updateParams.slice(0, -1),
+        ExpressionAttributeValues: expressionAttributeValues,
+        ReturnValues:"UPDATED_NEW"
+    }
+    try{
+        await db.update(params).promise()
+        return { success: true }
+    } catch(error){
+        console.log(error)
+        return { success: false, data: { message: error['code'], status: error['statusCode'] } }
+    }
+}
+
+const enrollStudent = async (data = {}) => {
+    console.log(data['Name'])
+    console.log(data['PrimaryPhone'])
+    const readParams = {
+        TableName: studentTable,
+        Key: {
+            "Name": data['Name'],
+            "PrimaryPhone": data['PrimaryPhone'] 
+        }
+    }
+    const { Student = {} } = await db.get(readParams).promise();
+    let updateParams = 'SET';
+    let expressionAttributeValues = {};
+    console.log(Student);
+    for (let key in data) {
+        if (key === "Name" || key === "PrimaryPhone") {
+            continue;
+        } else {
+            updateParams += ` ${key} = :${key},`;
+            expressionAttributeValues[`:${key}`] = data[key];
+        }
+    }
+    for( let course in Student['Courses']) {
+        console.log(course)
+    }
+    const params = {
+        TableName: studentTable,
+        Key: {
+            "Name": data['Name'],
+            "PrimaryPhone": data['PrimaryPhone'],
+        },
+        UpdateExpression: updateParams.slice(0, -1),
+        ExpressionAttributeValues: expressionAttributeValues,
+        ReturnValues:"UPDATED_NEW"
+    }
+    return { success: true }
+    // try{
+    //     await db.update(params).promise()
+    //     return { success: true }
+    // } catch(error){
+    //     console.log(error)
+    //     return { success: false, data: { message: error['code'], status: error['statusCode'] } }
+    // }
 }
 
 // Get all students in the database
@@ -84,5 +159,7 @@ export {
     createOrUpdateStudent,
     readAllStudents,
     readStudent,
-    deleteStudent
+    deleteStudent,
+    updateStudent,
+    enrollStudent
 }
