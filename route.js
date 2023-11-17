@@ -1,7 +1,5 @@
 import express from 'express';
-import { createOrUpdateStudent, readAllStudents, readStudent, deleteStudent } from './database/index.js';
-import { render } from 'pug';
-
+import { createOrUpdateStudent, readAllStudents, readStudent, deleteStudent, updateStudent, enrollStudent } from './database/index.js';
 
 const router = express.Router();
 router.use(express.urlencoded({
@@ -43,7 +41,6 @@ router.get('/students', async (req, res) => {
   }
 });
 
-
 /* 
 * Get student by name and number
 */
@@ -59,16 +56,22 @@ router.get('/student', validateParams, async (req, res) => {
   }
 });
 
+/*
+* Create/Update form for students
+*/
 router.get('/upsert', async (req, res) => {
   res.render('upsert')
 });
 
+/*
+* Form to fetch a particular student by Name and phone number
+*/
 router.get('/getStudent', async (req, res) => {
   res.render('get_student')
 });
 
 /* 
-* Create or Update a student
+* Create a student
 */
 router.post('/student', async (req, res) => {
   const { success, data } = await createOrUpdateStudent(req.body);
@@ -80,6 +83,20 @@ router.post('/student', async (req, res) => {
     res.render('index', {failure: req.flash('failure')})
   }
 });
+
+/* 
+* Update a student
+*/
+router.post('/update-student', async (req, res) => {
+  const { success, data } = await updateStudent(req.body);
+  if (success) {
+    req.flash('success', 'Updated student successfully.')
+    res.render('index', {success: req.flash('success')});
+  } else {
+    req.flash('failure', 'Failed to update student. Please try again.')
+    res.render('index', {failure: req.flash('failure')})
+  }
+})
 
 /* 
 * Delete a student
@@ -97,10 +114,33 @@ router.get('/remove-student', validateParams, async (req, res) => {
   }
 });
 
-
+/*
+* Remove form to delete a student from the database
+*/
 router.get('/remove', async (req, res) => {
-  res.render('remove')
+  res.render('remove');
 });
+
+/*
+* Enroll a student page
+*/
+router.get('/enroll-student', async (req, res) => {
+  res.render('enroll-student');
+})
+
+/* 
+*  Enroll student for courses
+*/
+router.post('/enroll', async (req, res) => {
+  const { success, data } = await enrollStudent(req.body);
+  if (success) {
+    req.flash('success', 'Updated student successfully.')
+    res.render('index', {success: req.flash('success')});
+  } else {
+    req.flash('failure', 'Failed to update student. Please try again.')
+    res.render('index', {failure: req.flash('failure')})
+  }
+})
 
 // Use the error handling middleware
 router.use(errorHandler);
