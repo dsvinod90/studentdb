@@ -72,7 +72,7 @@ const enrollStudent = async (data = {}) => {
         } else if (key === "Courses") {
             // Append new courses to the existing list
             updateExpressions.push(`${key} = list_append(${key}, :${key})`);
-            expressionAttributeValues[`:${key}`] = data[key]; // assuming data[key] is an array of new courses
+            expressionAttributeValues[`:${key}`] = data[key];
         } else {
             // For other attributes, set their new values
             updateExpressions.push(`${key} = :${key}`);
