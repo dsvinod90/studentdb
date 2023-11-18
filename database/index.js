@@ -47,7 +47,7 @@ const updateStudent = async (data = {}) => {
     }
 }
 
-
+//enroll an existing student
 const enrollStudent = async (data = {}) => {
     console.log(data['Name'])
     console.log(data['PrimaryPhone'])
